@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"fmt"
 
-	"github.com/aztecrabbit/libutils"
+	"github.com/victorgeel/libutils"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 		LogDebug: "off",
 		LogOutput: libutils.RealPath("redsocks.log"),
 		LocalHost: "0.0.0.0",
-		LocalPort: "3070",
+		LocalPort: "9680",
 		Host: "127.0.0.1",
 		Port: "9693",
 		Type: "socks5",
@@ -58,7 +58,7 @@ func (r *Redsocks) CheckIsEnabled() bool {
 }
 
 func (r *Redsocks) GenerateConfig() error {
-	data := fmt.Sprintf(`// Generated from Brainfuck Tunnel Libraries
+	data := fmt.Sprintf(`// Generated from PsiTurtle Libraries
 // (m)2024 Victor Geek .
 
 base {
@@ -176,10 +176,10 @@ func (r *Redsocks) Start() {
 		"iptables -t nat -A REDSOCKS -d 192.168.0.0/16 -j RETURN",
 		"iptables -t nat -A REDSOCKS -d 224.0.0.0/4 -j RETURN",
 		"iptables -t nat -A REDSOCKS -d 240.0.0.0/4 -j RETURN",
-		"iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 3070",
-		"iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 3070",
+		"iptables -t nat -A REDSOCKS -p tcp -j REDIRECT --to-ports 9680",
+		"iptables -t nat -A REDSOCKS -p udp -j REDIRECT --to-ports 9680",
 		"iptables -t nat -A PREROUTING -d 192.168.0.0/16 -j RETURN",
-		"iptables -t nat -A PREROUTING -p tcp -j REDIRECT --to-ports 3070",
+		"iptables -t nat -A PREROUTING -p tcp -j REDIRECT --to-ports 9680",
 		"iptables -t nat -A OUTPUT -j REDSOCKS",
 		"redsocks -c " + r.Config.ConfigOutput,
 	}
